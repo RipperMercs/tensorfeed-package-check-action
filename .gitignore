@@ -1,0 +1,24 @@
+node_modules/
+*.log
+
+# Local-only docs and specs
+*.md
+!README.md
+*.markdown
+docs/
+specs/
+spec/
+design/
+plans/
+.claude/
+CLAUDE.md
+NOTES.md
+ROADMAP.md
+CHANGELOG.md
+
+# Secrets
+.env
+.env.*
+*.key
+*.pem
+secrets/

@@ -1,0 +1,43 @@
+name: 'TensorFeed Package Check'
+description: 'Blocks known-malicious and typosquatted npm and PyPI packages in pull request lockfile changes. Free tier included.'
+author: 'TensorFeed'
+branding:
+  icon: 'shield'
+  color: 'green'
+inputs:
+  mode:
+    description: 'deny fails the job on a BLOCK verdict; warn does not, unless fail-on-review is true.'
+    required: false
+    default: 'deny'
+  fail-on-review:
+    description: 'Also fail the job on a REVIEW verdict (known critical or high vulnerability, near-miss name, brand-new package). When true, a BLOCK verdict always fails the job, even in warn mode.'
+    required: false
+    default: 'false'
+  tensorfeed-token:
+    description: 'Optional TensorFeed credit token. Removes the free daily cap (1 credit per request of up to 20 packages).'
+    required: false
+    default: ''
+  lockfiles:
+    description: 'Comma-separated paths or globs that filter the lockfiles found automatically (recognized lockfile names only). Default: every lockfile found.'
+    required: false
+    default: ''
+  scan:
+    description: 'changed checks only packages a pull request adds or updates; all checks every package.'
+    required: false
+    default: 'changed'
+  allowlist:
+    description: 'Comma-separated package names to never check. Supports @scope/* and prefix*.'
+    required: false
+    default: ''
+outputs:
+  blocked:
+    description: 'Number of packages with a BLOCK verdict'
+  review:
+    description: 'Number of packages with a REVIEW verdict'
+  checked:
+    description: 'Number of packages checked'
+  unchecked:
+    description: 'Number of packages not checked (free cap, credits, or service errors)'
+runs:
+  using: 'node24'
+  main: 'src/main.mjs'
